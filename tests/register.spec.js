@@ -44,6 +44,6 @@ test('Should create new user account', async ({ page }) => {
     //Assert account is created
     await expect(page.locator('h1')).toHaveText('Your Account Has Been Created!');
     await expect(page.locator('div.menu_text')).toContainText(firstName);
-})
+});
 
-})
+});
