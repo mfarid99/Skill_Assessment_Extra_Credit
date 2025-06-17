@@ -6,7 +6,8 @@ async function assertItemInCart(page, {name, unitPrice, quantity, total}){
     });
     await expect(row).toContainText(name);
     await expect(row).toContainText(unitPrice);
-    await expect(row).toContainText(quantity);
+    const quantityInput = row.locator('input[name^="quantity"]');
+    await expect(quantityInput).toHaveValue(quantity);
     await expect(row).toContainText(total);
 }
 

@@ -66,7 +66,47 @@ test('Should create new user account', async ({ page }) => {
         total: '$76.87'
     })
 
+     //Click skincare tab
+    await page.getByRole('link', {name: /skincare/i}).click();
+    //Click Flash Bronzer
+    await page.click('[title="Flash Bronzer Body Gel"]');
+     //Add to cart
+    await page.click('a:has-text("Add to Cart")');
+    //Assert item added to shopping cart
+    await assertItemInCart(page, {
+        name: "Flash Bronzer Body Gel",
+        unitPrice: '$29.00',
+        quantity: '1',
+        total: '$29.00'
+    })
+    //Assert item total is accurate
+    await assertCartTotal(page, {
+        subtotal: '$98.00',
+        shipping: '$2.00',
+        tax: '$8.33',
+        total: '$108.33'
+    })
 
+     //Click hair care tab
+    await page.getByRole('link', {name: /hair/i}).click();
+    //Click Seaweed Conditioner
+    await page.click('[title="Seaweed Conditioner"]');
+     //Add to cart
+    await page.click('a:has-text("Add to Cart")');
+    //Assert item added to shopping cart
+    await assertItemInCart(page, {
+        name: "Seaweed Conditioner",
+        unitPrice: '19.00',
+        quantity: '1',
+        total: '$19.00'
+    })
+    //Assert item total is accurate
+    await assertCartTotal(page, {
+        subtotal: '$117.00',
+        shipping: '$2.00',
+        tax: '$9.95',
+        total: '$128.95'
+    })
 
 
 
