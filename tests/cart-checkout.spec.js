@@ -1,11 +1,13 @@
 const { test, expect } = require('@playwright/test');
 const { isUserLoggedIn } = require('../login.js');
 const { assertItemInCart, assertCartTotal } = require('../cart.js');
+const { assertShippingInfo, assertPaymentInfo, assertItemsInYourCart } = require('../checkout.js');
 
 
-test.describe('Add New User', () => {
 
-test('Should create new user account', async ({ page }) => {
+test.describe('Add products to cart', () => {
+
+test('Should add items to cart and checkout', async ({ page }) => {
     //Navigate to url
     await page.goto('https://automationteststore.com/');
     await expect(page).toHaveTitle('A place to practice your automation skills!');
@@ -107,6 +109,61 @@ test('Should create new user account', async ({ page }) => {
         tax: '$9.95',
         total: '$128.95'
     })
+
+    //Checkout 
+    await page.click('a[id="cart_checkout1"]');
+    await expect(page.locator('h1')).toContainText(/checkout confirmation/i)
+
+    //Assert shipping information
+    await assertShippingInfo(page, {
+        name: 'Moe Farid',
+        phone: '310-876-5432',
+        address: '1234 Main Street Ste 300',
+        cityStateZip: 'Alexandria Virginia 22315',
+        country: 'United States',
+        shipping: 'Flat Shipping Rate'
+    })
+
+    //Assert payment information
+    await assertPaymentInfo(page, {
+        name: 'Moe Farid',
+        phone: '310-876-5432',
+        address: '1234 Main Street Ste 300',
+        cityStateZip: 'Alexandria Virginia 22315',
+        country: 'United States',
+        paymentMethod: 'Cash On Delivery'
+    })
+
+    //Assert Items in cart
+    await assertItemsInYourCart(page, [
+        {
+            name: 'Designer Men Casual Formal Double Cuffs',
+            unitPrice: '$32.00',
+            quantity: '2' ,
+            total: '$64.00'
+        },
+        {
+            name: 'Viva Glam Lipstick',
+            unitPrice: '$5.00',
+            quantity: '1' ,
+            total: '$5.00'
+        },
+        {
+            name: 'Flash Bronzer Body Gel',
+            unitPrice: '$29.00' ,
+            quantity: '1',
+            total: '$29.00'
+        },
+        {
+            name: 'Seaweed Conditioner' ,
+            unitPrice: '$19.00',
+            quantity: '1',
+            total: '$19.00'
+        }
+    ])
+
+
+
 
 
 
