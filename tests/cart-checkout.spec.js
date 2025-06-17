@@ -162,17 +162,14 @@ test('Should add items to cart and checkout', async ({ page }) => {
         }
     ])
 
-
-
-
-
-
-
-
-    
-
-
-
+    //Confirm Order
+    await page.click('button[id="checkout_btn"]');
+    //Assert order is processed
+    await expect(page.locator('h1')).toHaveText(/your order has been processed!/i);
+    //Click Continue
+    await page.click('a[title="Continue"]');
+    //Assert user is on home page
+    await expect(page).toHaveURL('https://automationteststore.com/');
 
  });
 
