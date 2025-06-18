@@ -2,5 +2,3 @@ node_modules/
 playwright/.cache/
 playwright-report
 test-results/
-allure-results/
-allure-report/

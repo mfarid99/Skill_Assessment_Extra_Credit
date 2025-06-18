@@ -1,0 +1,1 @@
+[{"uid":"12653cf21a220041","name":"Should create new user account","time":{"start":1750184394398,"stop":1750184404971,"duration":10573},"status":"passed","severity":"normal"},{"uid":"6c1c953ca1fe4ef9","name":"Should add items to cart and checkout","time":{"start":1750184394915,"stop":1750184419563,"duration":24648},"status":"passed","severity":"normal"}]
